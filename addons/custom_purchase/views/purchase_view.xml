@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="custom_purchase_tree_view_id" model="ir.ui.view">
+        <field name="name">custom_purchase_tree_view_id</field>
+        <field name="model">custom.purchase</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
