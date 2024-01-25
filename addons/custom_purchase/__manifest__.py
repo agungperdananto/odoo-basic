@@ -11,9 +11,8 @@
     'depends': ['web', 'base'],
     'data': [
         'security/ir.model.access.csv',
-        'views/purchase_view.xml',
-        'views/purchase_menuitem.xml',
-        'views/purchase_action.xml',
+        'views/custom_purchase_tree_view.xml',
+        'views/custom_purchase_form_view.xml',
 
         ],
     'installlable': True,

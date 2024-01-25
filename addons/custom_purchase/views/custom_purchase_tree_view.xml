@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="custom_purchase_tree_view_id" model="ir.ui.view">
+        <field name="name">custom.purchase.tree.view</field>
+        <field name="model">custom.purchase</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="custom_purchase_tree_action" model="ir.actions.act_window">
+        <field name="name">Custom Purchases</field>
+        <field name="res_model">custom.purchase</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="custom_purchase_tree_view_id"/>
+    </record>
+
+    <menuitem id="menu_custom_purchase" name="Custom Purchases" sequence="20"/>
+    <menuitem id="menu_custom_purchase_tree" name="Custom Purchases" parent="menu_custom_purchase" action="custom_purchase_tree_action"/>
+</odoo>
