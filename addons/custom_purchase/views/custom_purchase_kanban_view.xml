@@ -9,16 +9,21 @@
                 <field name="date"/>
                 <field name="status"/>
                 <!-- Add more fields as needed -->
-
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
                             <div class="oe_kanban_details">
+                                <span class="oe_kanban_title">
+                                    <h3><field name="name"/></h3>
+                                    <hr/>
+                                </span>
                                 <span class="oe_kanban_content">
-                                    <field name="name"/>
-                                    <field name="date"/>
-                                    <field name="status"/>
-                                    <!-- Add more fields as needed -->
+                                    <div>
+                                        <ul>
+                                            <li>Date: <field name="date" widget="date" options="{'date_format': 'DD-MM-YYYY'}"/></li>
+                                            <li>Status: <field name="status" widget="statusbar" statusbar_visible="draft,approved,done"  statusbar_colors='{"draft":"red","approved":"green,"done":"blue"}'/></li>
+                                        </ul>
+                                    </div>  
                                 </span>
                             </div>
                         </div>

@@ -6,6 +6,9 @@
         <field name="model">custom.purchase</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
                 <sheet>
                     <group>
                         <field name="name"/>
@@ -52,15 +55,15 @@
         </field>
     </record>
 
-    <!-- View for custom.purchase.line -->
-    <record id="view_custom_purchase_line_tree" model="ir.ui.view">
-        <field name="name">custom.purchase.line.tree</field>
-        <field name="model">custom.purchase.line</field>
+    <!-- View for custom.purchase tree -->
+    <record id="view_custom_purchase_tree" model="ir.ui.view">
+        <field name="name">custom.purchase.tree</field>
+        <field name="model">custom.purchase</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="product_id"/>
-                <field name="quantity"/>
-                <field name="uom_id"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="status" widget="statusbar"/>
             </tree>
         </field>
     </record>
