@@ -8,12 +8,10 @@
         ''',
     'website': '',
     'author': 'agung p',
-    'depends': ['web', 'base'],
+    'depends': ['web', 'base', 'product'],
     'data': [
         'security/ir.model.access.csv',
-        'views/custom_purchase_tree_view.xml',
-        'views/custom_purchase_form_view.xml',
-        'views/custom_purchase_kanban_view.xml'
+        'views/custom_purchase_view.xml'
 
         ],
     'installlable': True,
