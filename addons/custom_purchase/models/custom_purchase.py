@@ -5,4 +5,4 @@ class CustomPurchase(models.Model):
 
     name = fields.Char(string='name')
     date = fields.Date(string='date')
-    status = fields.Selection([('draft', 'Draft'), ('approved', 'Approved'), ('done', 'Done')])
+    status = fields.Selection([('draft', 'Draft'), ('approved', 'Approved'), ('done', 'Done')], default='draft')

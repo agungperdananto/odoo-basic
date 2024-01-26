@@ -12,10 +12,23 @@
         </field>
     </record>
 
+    <!-- Add this reference to the Kanban view -->
+    <record id="custom_purchase_kanban_view_id" model="ir.ui.view">
+        <field name="name">custom.purchase.kanban.view</field>
+        <field name="model">custom.purchase</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="status"/>
+            </kanban>
+        </field>
+    </record>
+
     <record id="custom_purchase_tree_action" model="ir.actions.act_window">
         <field name="name">Custom Purchases</field>
         <field name="res_model">custom.purchase</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field> <!-- Add 'kanban' to the view modes -->
         <field name="view_id" ref="custom_purchase_tree_view_id"/>
     </record>
 
