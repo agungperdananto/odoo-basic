@@ -11,7 +11,8 @@
     'depends': ['web', 'base', 'product'],
     'data': [
         'security/ir.model.access.csv',
-        'views/custom_purchase_view.xml'
+        'views/custom_purchase_view.xml',
+        'views/custom_purchase_kanban_view.xml'
 
         ],
     'installlable': True,
