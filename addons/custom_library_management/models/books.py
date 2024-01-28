@@ -25,7 +25,7 @@ class LibraryBookItem(models.Model):
 
     display_name = fields.Char(compute='_compute_display_name', store=True)
 
-    condition = fields.Selection([('good', 'Good'), ('standard', 'Standard'), ('broken', 'Broken')], default='good')
+    condition = fields.Selection([('good', 'Good'), ('standard', 'Standard'), ('broken', 'Broken'), ('lost', 'Lost')], default='good')
     is_ready = fields.Boolean(string='Is Ready', default=True)
     date_added = fields.Datetime(string='date added', default=fields.Datetime.now(), required=True)
 
@@ -52,7 +52,7 @@ class LibraryBookItem(models.Model):
             ('book_id.title', operator, name),  # Include title search
         ]
         # Additional conditions for filtering
-        domain += [('is_ready', '=', True), ('condition', '!=', 'broken')]
+        domain += [('is_ready', '=', True), ('condition', '!=', 'broken'), ('condition', '!=', 'lost')]
         records = self.search(domain + args, limit=limit)
         return records.name_get()
 
