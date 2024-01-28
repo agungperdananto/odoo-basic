@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_library_book,Library Book,model_library_book,base.group_user,1,1,1,1
+access_library_book_item,Library Book Item,model_library_book_item,base.group_user,1,1,1,1
+access_library_transaction,Library Transaction,model_library_transaction,base.group_user,1,1,1,1
+access_library_transaction_item,Library Transaction Item,model_library_transaction_item,base.group_user,1,1,1,1
+access_library_member,Library Member,model_library_member,base.group_user,1,1,1,1

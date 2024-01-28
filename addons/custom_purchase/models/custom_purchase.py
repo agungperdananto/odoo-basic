@@ -1,4 +1,6 @@
 from odoo import models, fields, _
+
+
 class CustomPurchase(models.Model):
     _name = 'custom.purchase'
 

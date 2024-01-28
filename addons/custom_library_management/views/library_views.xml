@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Parent Menu for Library -->
+        <menuitem id="menu_library" name="Library" sequence="10"/>
+
+        <!-- Tree View for Library Book -->
+        <record id="view_library_book_tree" model="ir.ui.view">
+            <field name="name">library.book.tree</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="isbn"/>
+                    <field name="title"/>
+                    <field name="author"/>
+                    <field name="publisher"/>
+                    <field name="release_year"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View for Library Book -->
+        <record id="view_library_book_form" model="ir.ui.view">
+            <field name="name">library.book.form</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="isbn"/>
+                            <field name="title"/>
+                            <field name="description"/>
+                            <field name="author"/>
+                            <field name="publisher"/>
+                            <field name="release_year"/>
+                            <field name="language"/>
+                        </group>
+                        <notebook>
+                            <page string="Book Items">
+                                <field name="book_items" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="book_code"/>
+                                        <field name="condition"/>
+                                        <field name="date_added"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action View for Library Book Tree -->
+        <record id="action_library_book_tree" model="ir.actions.act_window">
+            <field name="name">Library Books</field>
+            <field name="res_model">library.book</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_library_book_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click on Create to add a new library book.
+                </p>
+            </field>
+            <field name="domain">[]</field>
+        </record>
+
+        <!-- Menu for Library Book -->
+        <menuitem id="menu_library_book" name="Library Books" parent="menu_library" sequence="20" action="action_library_book_tree"/>
+
+        <!-- Tree View for Library Transaction -->
+        <record id="view_library_transaction_tree" model="ir.ui.view">
+            <field name="name">library.transaction.tree</field>
+            <field name="model">library.transaction</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="member_id"/>
+                    <field name="created_at"/>
+                    <field name="updated_at"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View for Library Transaction -->
+        <record id="view_library_transaction_form" model="ir.ui.view">
+            <field name="name">library.transaction.form</field>
+            <field name="model">library.transaction</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="member_id"/>
+                            <field name="created_at"/>
+                            <field name="updated_at"/>
+                        </group>
+                            <notebook>
+                                <page string="Transaction Items">
+                                    <field name="library_items" widget="one2many_list">
+                                        <tree editable="bottom">
+                                            
+                                            <field name="initial_condition"/>
+                                            <field name="lend_date"/>
+                                            <field name="book_item_id"/>
+                                            <field name="return_date"/>
+                                            <field name="status" />
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action View for Library Transaction Tree -->
+        <record id="action_library_transaction_tree" model="ir.actions.act_window">
+            <field name="name">Library Transactions</field>
+            <field name="res_model">library.transaction</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_library_transaction_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click on Create to add a new library transaction.
+                </p>
+            </field>
+            <field name="domain">[]</field>
+        </record>
+
+        <!-- Menu for Library Transaction -->
+        <menuitem id="menu_library_transaction" name="Library Transactions" parent="menu_library" sequence="30" action="action_library_transaction_tree"/>
+
+        <!-- Tree View for Library Member -->
+        <record id="view_library_member_tree" model="ir.ui.view">
+            <field name="name">library.member.tree</field>
+            <field name="model">library.member</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="user_id"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="address"/>
+                    <field name="birth_date"/>
+                    <field name="registration_date"/>
+                    <field name="is_active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View for Library Member -->
+        <record id="view_library_member_form" model="ir.ui.view">
+            <field name="name">library.member.form</field>
+            <field name="model">library.member</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="address"/>
+                            <field name="birth_date"/>
+                            <field name="registration_date"/>
+                            <field name="is_active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action View for Library Member Tree -->
+        <record id="action_library_member_tree" model="ir.actions.act_window">
+            <field name="name">Library Members</field>
+            <field name="res_model">library.member</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_library_member_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click on Create to add a new library member.
+                </p>
+            </field>
+            <field name="domain">[]</field>
+        </record>
+
+        <!-- Menu for Library Member -->
+        <menuitem id="menu_library_member" name="Library Members" parent="menu_library" sequence="40" action="action_library_member_tree"/>
+
+    </data>
+</odoo>

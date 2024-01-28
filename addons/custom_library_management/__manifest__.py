@@ -8,12 +8,10 @@
         ''',
     'website': '',
     'author': 'agung p',
-    'depends': ['web', 'base', 'product'],
+    'depends': ['web', 'base'],
     'data': [
         'security/ir.model.access.csv',
-        # 'views/custom_purchase_view.xml',
-        # 'views/custom_purchase_kanban_view.xml'
-
+        'views/library_views.xml',
         ],
     'installlable': True,
     'license': 'OEEL-1'
