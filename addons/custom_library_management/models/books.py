@@ -49,7 +49,7 @@ class LibraryBookItem(models.Model):
             '|',
             ('book_code', operator, name),
             ('display_name', operator, name),
-            ('book_id.title', operator, name),  # Include title search
+            ('book_id.title', operator, name)
         ]
         # Additional conditions for filtering
         domain += [('is_ready', '=', True), ('condition', '!=', 'broken'), ('condition', '!=', 'lost')]
