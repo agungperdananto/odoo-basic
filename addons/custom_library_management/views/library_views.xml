@@ -100,9 +100,9 @@
                                     <field name="transaction_items" widget="one2many_list">
                                         <tree editable="bottom">
                                             <field name="book_item_id"/>
-                                            <field name="initial_condition"/>
-                                            <field name="return_condition"/>
-                                            <field name="lend_date"/>
+                                            <field name="initial_condition" readonly="1"/>
+                                            <field name="return_condition" attrs="{'readonly': [('status', '=', 'on_customer')]}"/>
+                                            <field name="lend_date" readonly="1"/>
                                             <field name="return_date"/>
                                             <field name="status" />
                                         </tree>

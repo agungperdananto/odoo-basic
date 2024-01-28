@@ -45,7 +45,14 @@ class LibraryBookItem(models.Model):
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=10):
         args = args or []
-        domain = ['|', ('book_code', operator, name), ('display_name', operator, name)]
+        domain = [
+            '|',
+            ('book_code', operator, name),
+            ('display_name', operator, name),
+            ('book_id.title', operator, name),  # Include title search
+        ]
+        # Additional conditions for filtering
+        domain += [('is_ready', '=', True), ('condition', '!=', 'broken')]
         records = self.search(domain + args, limit=limit)
         return records.name_get()
 
