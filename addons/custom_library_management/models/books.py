@@ -38,7 +38,7 @@ class LibraryBookItem(models.Model):
     display_name = fields.Char(compute='_compute_display_name', store=True)
 
     condition = fields.Selection([('good', 'Good'), ('standard', 'Standard'), ('broken', 'Broken'), ('lost', 'Lost')], default='good')
-    on_hand = fields.Boolean(string='Is Ready', default=True)
+    on_hand = fields.Boolean(string='On Hand', default=True)
     date_added = fields.Datetime(string='date added', default=fields.Datetime.now(), required=True)
 
     @api.depends('isbn', 'book_id.isbn')

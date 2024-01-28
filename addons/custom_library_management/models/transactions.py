@@ -47,13 +47,13 @@ class LibraryTransactionItem(models.Model):
     @api.model
     def create(self, values):
         record = super(LibraryTransactionItem, self).create(values)
-        if not record.book_item_id.is_ready:
+        if not record.book_item_id.on_hand:
             raise ValidationError(f'book with code{record.book_item_id.book_code} is not ready')
 
         record.initial_condition = record.book_item_id.condition
         record.return_condition = record.book_item_id.condition
         if record.status == 'on_customer':
-            record.book_item_id.is_ready = False
+            record.book_item_id.on_hand = False
         return record
     
 
@@ -64,10 +64,12 @@ class LibraryTransactionItem(models.Model):
         change = {}
         if values.get('status') == 'returned':
             change = {
-                'is_ready': True,
+                'on_hand': True,
                 }
-        if values.get('return_condition'):
-            change['condition'] = values.get('return_condition')
+            if values.get('status'):
+                change['condition'] = values.get('return_condition')
+        else:
+            change['condition'] = values.get('status')
         
         self.book_item_id.write(change)
 
