@@ -16,6 +16,7 @@
                     <field name="author"/>
                     <field name="publisher"/>
                     <field name="release_year"/>
+                    <field name="ready_book_items"/>
                 </tree>
             </field>
         </record>
@@ -35,6 +36,7 @@
                             <field name="publisher"/>
                             <field name="release_year"/>
                             <field name="language"/>
+                            <field name="ready_book_items" readonly="1"/>
                         </group>
                         <notebook>
                             <page string="Book Items">
@@ -91,13 +93,16 @@
             <field name="model">library.transaction</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <field name="status" widget="statusbar"/>
+                    </header>
                     <sheet>
                         <group>
                             <field name="transaction_id"/>
                             <field name="member_id"/>
                             <field name="created_at"/>
                             <field name="updated_at"/>
-                            <field name="status"/>
+                            
                         </group>
                             <notebook>
                                 <page string="Transaction Items">
@@ -141,7 +146,7 @@
             <field name="model">library.member</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="user_id"/>
+                    <field name="user_id" readonly="1"/>
                     <field name="name"/>
                     <field name="email"/>
                     <field name="address"/>
@@ -160,7 +165,7 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="user_id"/>
+                            <field name="user_id" readonly="1"/>
                             <field name="name"/>
                             <field name="email"/>
                             <field name="address"/>

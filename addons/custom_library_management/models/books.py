@@ -15,6 +15,18 @@ class LibraryBook(models.Model):
 
     book_items = fields.One2many('library.book.item', 'book_id', string='Book Items')
 
+    ready_book_items = fields.Integer(
+        string='Ready Book Items',
+        compute='_compute_ready_book_items_count',
+        store=True,
+    )
+
+    @api.depends('book_items.is_ready', 'book_items.condition')
+    def _compute_ready_book_items_count(self):
+        for book in self:
+            ready_book_items = book.book_items.filtered(lambda item: item.is_ready and item.condition not in ('broken', 'lost'))
+            book.ready_book_items = len(ready_book_items)
+
 
 class LibraryBookItem(models.Model):
     _name = 'library.book.item'

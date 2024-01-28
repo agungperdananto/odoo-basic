@@ -9,25 +9,12 @@ class LibraryTransaction(models.Model):
     transaction_id = fields.Char(string='Transaction ID', default='IN-'+str(uuid.uuid4()))
 
     member_id = fields.Many2one('library.member', string='Member ID')
-    created_at = fields.Datetime(string='Created_at', required=True)
-    updated_at = fields.Datetime(string='Updated_at', required=True)
+    created_at = fields.Datetime(string='Created_at', default=fields.Datetime.now(), required=True)
+    updated_at = fields.Datetime(string='Updated_at', default=fields.Datetime.now(), required=True)
 
     transaction_items = fields.One2many('library.transaction.item', 'transaction_id', string='Library Items')
 
     status = fields.Selection([('on_progress', 'On Progress'), ('done', 'Done')], default='on_progress')
-
-    def _update_transaction_items_status(self):
-        """Update parent status based on child statuses."""
-    
-        if self.status == 'done':
-            for item in self.transaction_items:
-                item.status == 'returned'
-
-    @api.model
-    def create(self, values):
-        record = super(LibraryTransaction, self).create(values)
-        record.created_at = fields.Datetime.now()
-        record.updated_at = fields.Datetime.now()
     
     def write(self, values):
         values['updated_at'] = fields.Datetime.now()
