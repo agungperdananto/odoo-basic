@@ -99,7 +99,7 @@
                     <sheet>
                         <group>
                             <field name="transaction_id" readonly="1"/>
-                            <field name="member_id" readonly="1"/>
+                            <field name="member_id" readonly="status == 'done'"/>
                             <field name="created_at" readonly="1"/>
                             <field name="updated_at" readonly="1"/>
                             

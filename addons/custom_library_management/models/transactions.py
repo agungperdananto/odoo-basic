@@ -8,7 +8,7 @@ class LibraryTransaction(models.Model):
 
     transaction_id = fields.Char(string='Transaction ID', default='IN-'+str(uuid.uuid4()))
 
-    member_id = fields.Many2one('library.member', string='Member ID')
+    member_id = fields.Many2one('library.member', string='Member ID', required=True)
     created_at = fields.Datetime(string='Created_at', default=fields.Datetime.now(), required=True)
     updated_at = fields.Datetime(string='Updated_at', default=fields.Datetime.now(), required=True)
 
@@ -28,7 +28,7 @@ class LibraryTransactionItem(models.Model):
     transaction_id = fields.Many2one('library.transaction', string='Transaction ID')
     book_item_id = fields.Many2one('library.book.item', string='Book Item', required=True)
     initial_condition = fields.Selection([('good', 'Good'), ('standard', 'Standard')])
-    return_condition = fields.Selection([('good', 'Good'), ('standard', 'Standard'), ('broken', 'Broken')])
+    return_condition = fields.Selection([('good', 'Good'), ('standard', 'Standard'), ('broken', 'Broken'), ('lost', 'Lost')])
     lend_date = fields.Datetime(string='created_at', default=fields.Datetime.now(), required=True)
     return_date = fields.Datetime(string='updated_at')
     status = fields.Selection([('on_customer', 'On Customer'), ('returned', 'Returned'), ('lost', 'Lost')], default='on_customer')
@@ -50,8 +50,10 @@ class LibraryTransactionItem(models.Model):
         if not record.book_item_id.on_hand:
             raise ValidationError(f'book with code{record.book_item_id.book_code} is not ready')
 
-        record.initial_condition = record.book_item_id.condition
-        record.return_condition = record.book_item_id.condition
+        condition = record.book_item_id.condition
+        record.initial_condition = condition
+        record.return_condition = condition
+
         if record.status == 'on_customer':
             record.book_item_id.on_hand = False
         return record
@@ -61,15 +63,18 @@ class LibraryTransactionItem(models.Model):
         values['return_date'] = fields.Datetime.now()
         result = super(LibraryTransactionItem, self).write(values)
         self._update_transaction_status()
+        status = values.get('status')
         change = {}
-        if values.get('status') == 'returned':
+
+        if status == 'returned':
             change = {
                 'on_hand': True,
                 }
-            if values.get('status'):
-                change['condition'] = values.get('return_condition')
-        else:
-            change['condition'] = values.get('status')
+            change['condition'] = values.get('return_condition')
+        elif status == 'lost':
+            status = values.get('status')
+            change['condition'] = status
+            self.write({'return_condition': status})
         
         self.book_item_id.write(change)
 
