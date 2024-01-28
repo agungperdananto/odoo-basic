@@ -41,7 +41,7 @@ class LibraryTransactionItem(models.Model):
     transaction_id = fields.Many2one('library.transaction', string='Transaction ID')
     book_item_id = fields.Many2one('library.book.item', string='Book Item', required=True)
     initial_condition = fields.Selection([('good', 'Good'), ('standard', 'Standard')])
-    return_condition = fields.Selection([('good', 'Good'), ('standard', 'Standard'), ('broken', 'Broken'))
+    return_condition = fields.Selection([('good', 'Good'), ('standard', 'Standard'), ('broken', 'Broken')])
     lend_date = fields.Datetime(string='created_at', default=fields.Datetime.now(), required=True)
     return_date = fields.Datetime(string='updated_at')
     status = fields.Selection([('on_customer', 'On Customer'), ('returned', 'Returned'), ('lost', 'Lost')], default='on_customer')
