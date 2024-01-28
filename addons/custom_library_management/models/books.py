@@ -21,14 +21,13 @@ class LibraryBookItem(models.Model):
 
     book_id = fields.Many2one('library.book', string='Book', required=True)
     book_code = fields.Char(string='Book Code', compute='_generate_book_code', store=True)
-    isbn = fields.Char(string='ISBN', required=True)
+    isbn = fields.Char(string='ISBN')
+
+    display_name = fields.Char(compute='_compute_display_name', store=True)
 
     condition = fields.Selection([('good', 'Good'), ('standard', 'Standard'), ('broken', 'Broken')], default='good')
+    is_ready = fields.Boolean(string='Is Ready', default=True)
     date_added = fields.Datetime(string='date added', default=fields.Datetime.now(), required=True)
-
-    _sql_constraints = [
-        ('book_code_unique', 'unique(book_code)', 'book code must be unique!'),
-    ]
 
     @api.depends('isbn', 'book_id.isbn')
     def _generate_book_code(self):
@@ -42,3 +41,16 @@ class LibraryBookItem(models.Model):
     def _onchange_book_id(self):
         if self.book_id:
             self.isbn = self.book_id.isbn
+
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=10):
+        args = args or []
+        domain = ['|', ('book_code', operator, name), ('display_name', operator, name)]
+        records = self.search(domain + args, limit=limit)
+        return records.name_get()
+
+    @api.onchange('condition')
+    @api.depends('book_code', 'condition', 'book_id')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = f'{record.book_id.title}-[{record.condition}]-[{record.book_code}] '

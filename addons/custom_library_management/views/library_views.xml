@@ -42,7 +42,8 @@
                                     <tree editable="bottom">
                                         <field name="book_code"/>
                                         <field name="condition"/>
-                                        <field name="date_added"/>
+                                        <field name="is_ready" readonly="1"/>
+                                        <field name="date_added" readonly="1"/>
                                     </tree>
                                 </field>
                             </page>
@@ -67,7 +68,7 @@
         </record>
 
         <!-- Menu for Library Book -->
-        <menuitem id="menu_library_book" name="Library Books" parent="menu_library" sequence="20" action="action_library_book_tree"/>
+        <menuitem id="menu_library_book" name="Library Books" parent="menu_library" sequence="30" action="action_library_book_tree"/>
 
         <!-- Tree View for Library Transaction -->
         <record id="view_library_transaction_tree" model="ir.ui.view">
@@ -96,12 +97,12 @@
                         </group>
                             <notebook>
                                 <page string="Transaction Items">
-                                    <field name="library_items" widget="one2many_list">
+                                    <field name="transaction_items" widget="one2many_list">
                                         <tree editable="bottom">
-                                            
-                                            <field name="initial_condition"/>
-                                            <field name="lend_date"/>
                                             <field name="book_item_id"/>
+                                            <field name="initial_condition"/>
+                                            <field name="return_condition"/>
+                                            <field name="lend_date"/>
                                             <field name="return_date"/>
                                             <field name="status" />
                                         </tree>
@@ -128,7 +129,7 @@
         </record>
 
         <!-- Menu for Library Transaction -->
-        <menuitem id="menu_library_transaction" name="Library Transactions" parent="menu_library" sequence="30" action="action_library_transaction_tree"/>
+        <menuitem id="menu_library_transaction" name="Library Transactions" parent="menu_library" sequence="20" action="action_library_transaction_tree"/>
 
         <!-- Tree View for Library Member -->
         <record id="view_library_member_tree" model="ir.ui.view">
