@@ -1,3 +1,4 @@
+import uuid
 from odoo import api, models, fields, _
 from odoo.exceptions import ValidationError
 
@@ -5,11 +6,15 @@ from odoo.exceptions import ValidationError
 class LibraryTransaction(models.Model):
     _name = 'library.transaction'
 
+    transaction_id = fields.Char(string='Transaction ID', default='IN-'+str(uuid.uuid4()))
+
     member_id = fields.Many2one('library.member', string='Member ID')
     created_at = fields.Datetime(string='Created_at', default=fields.Datetime.now(), required=True)
     updated_at = fields.Datetime(string='Updated_at', default=fields.Datetime.now(), required=True)
 
     transaction_items = fields.One2many('library.transaction.item', 'transaction_id', string='Library Items')
+
+    status = fields.Selection([('on_progress', 'On Progress'), ('done', 'Done')], default='on_progress')
 
 
 class LibraryTransactionItem(models.Model):
@@ -30,13 +35,22 @@ class LibraryTransactionItem(models.Model):
             raise ValidationError(f'book with code{record.book_item_id.book_code} is not ready')
 
         record.initial_condition = record.book_item_id.condition
+        record.return_condition = record.book_item_id.condition
         if record.status == 'on_customer':
             record.book_item_id.is_ready = False
         return record
     
 
     def write(self, values):
+        values['return_date'] = fields.Datetime.now()
         result = super(LibraryTransactionItem, self).write(values)
+        change = {}
         if values.get('status') == 'returned':
-            self.book_item_id.write({'is_ready': True})
+            change = {
+                'is_ready': True,
+                }
+            if values.get('return_condition'):
+                change['condition'] = values.get('return_condition')
+        
+        self.book_item_id.write(change)
         return result

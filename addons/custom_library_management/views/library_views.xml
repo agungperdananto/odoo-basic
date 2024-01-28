@@ -76,9 +76,11 @@
             <field name="model">library.transaction</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="transaction_id"/>
                     <field name="member_id"/>
                     <field name="created_at"/>
                     <field name="updated_at"/>
+                    <field name="status" widget="statusbar"/>
                 </tree>
             </field>
         </record>
@@ -91,9 +93,11 @@
                 <form>
                     <sheet>
                         <group>
+                            <field name="transaction_id"/>
                             <field name="member_id"/>
                             <field name="created_at"/>
                             <field name="updated_at"/>
+                            <field name="status"/>
                         </group>
                             <notebook>
                                 <page string="Transaction Items">
@@ -101,10 +105,10 @@
                                         <tree editable="bottom">
                                             <field name="book_item_id"/>
                                             <field name="initial_condition" readonly="1"/>
-                                            <field name="return_condition" attrs="{'readonly': [('status', '=', 'on_customer')]}"/>
+                                            <field name="return_condition" attrs="{'readonly': [('status', '=', 'returned')]}"/>
                                             <field name="lend_date" readonly="1"/>
-                                            <field name="return_date"/>
-                                            <field name="status" />
+                                            <field name="return_date" readonly="1"/>
+                                            <field name="status" attrs="{'readonly': [('status', '=', 'returned')]}"/>
                                         </tree>
                                     </field>
                                 </page>
