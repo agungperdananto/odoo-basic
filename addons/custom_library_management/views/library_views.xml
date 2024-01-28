@@ -98,22 +98,22 @@
                     </header>
                     <sheet>
                         <group>
-                            <field name="transaction_id"/>
-                            <field name="member_id"/>
-                            <field name="created_at"/>
-                            <field name="updated_at"/>
+                            <field name="transaction_id" readonly="1"/>
+                            <field name="member_id" readonly="status == 'done'"/>
+                            <field name="created_at" readonly="1"/>
+                            <field name="updated_at" readonly="1"/>
                             
                         </group>
                             <notebook>
                                 <page string="Transaction Items">
                                     <field name="transaction_items" widget="one2many_list">
-                                        <tree editable="bottom">
-                                            <field name="book_item_id"/>
+                                        <tree editable="bottom" edit="1">
+                                            <field name="book_item_id" readonly="status != 'on_customer'"/>
                                             <field name="initial_condition" readonly="1"/>
-                                            <field name="return_condition" attrs="{'readonly': [('status', '=', 'returned')]}"/>
+                                            <field name="return_condition" readonly="status != 'on_customer'"/>
                                             <field name="lend_date" readonly="1"/>
                                             <field name="return_date" readonly="1"/>
-                                            <field name="status" attrs="{'readonly': [('status', '=', 'returned')]}"/>
+                                            <field name="status" readonly="status != 'on_customer'"/>
                                         </tree>
                                     </field>
                                 </page>
