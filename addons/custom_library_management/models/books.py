@@ -21,10 +21,10 @@ class LibraryBook(models.Model):
         store=True,
     )
 
-    @api.depends('book_items.is_ready', 'book_items.condition')
+    @api.depends('book_items.on_hand', 'book_items.condition')
     def _compute_ready_book_items_count(self):
         for book in self:
-            ready_book_items = book.book_items.filtered(lambda item: item.is_ready and item.condition not in ('broken', 'lost'))
+            ready_book_items = book.book_items.filtered(lambda item: item.on_hand and item.condition not in ('broken', 'lost'))
             book.ready_book_items = len(ready_book_items)
 
 
@@ -38,7 +38,7 @@ class LibraryBookItem(models.Model):
     display_name = fields.Char(compute='_compute_display_name', store=True)
 
     condition = fields.Selection([('good', 'Good'), ('standard', 'Standard'), ('broken', 'Broken'), ('lost', 'Lost')], default='good')
-    is_ready = fields.Boolean(string='Is Ready', default=True)
+    on_hand = fields.Boolean(string='Is Ready', default=True)
     date_added = fields.Datetime(string='date added', default=fields.Datetime.now(), required=True)
 
     @api.depends('isbn', 'book_id.isbn')
@@ -64,7 +64,7 @@ class LibraryBookItem(models.Model):
             ('book_id.title', operator, name)
         ]
         # Additional conditions for filtering
-        domain += [('is_ready', '=', True), ('condition', '!=', 'broken'), ('condition', '!=', 'lost')]
+        domain += [('on_hand', '=', True), ('condition', '!=', 'broken'), ('condition', '!=', 'lost')]
         records = self.search(domain + args, limit=limit)
         return records.name_get()
 
