@@ -7,7 +7,7 @@
                 Custom Library Management Module
         ''',
     'website': '',
-    'author': 'agung p',
+    'author': 'agung perdananto',
     'depends': ['web', 'base'],
     'data': [
         'security/ir.model.access.csv',
