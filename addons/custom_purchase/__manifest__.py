@@ -4,10 +4,9 @@
     'category': 'purchase',
     'summary': 'purchase custom module',
     'description': '''
-                Purchase Custom module for learning
+                Purchase Custom module for test how to use Odoo erp
         ''',
-    'website': '',
-    'author': 'agung p',
+    'author': 'Agung perdananto',
     'depends': ['web', 'base', 'product'],
     'data': [
         'security/ir.model.access.csv',
