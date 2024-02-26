@@ -4,10 +4,11 @@
     'category': 'purchase',
     'summary': 'purchase custom module',
     'description': '''
-                Purchase Custom module for learning
+                Purchase Custom module for learning.
+                And testing
         ''',
     'website': '',
-    'author': 'agung p',
+    'author': 'Agung Perdananto',
     'depends': ['web', 'base', 'product'],
     'data': [
         'security/ir.model.access.csv',
