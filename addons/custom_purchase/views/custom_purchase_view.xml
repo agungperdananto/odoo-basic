@@ -49,7 +49,7 @@
         <field name="arch" type="xml">
             <kanban>
                 <field name="name"/>
-                <field name="date"/>
+                <!-- TODO modify date format -->
                 <field name="status"/>
             </kanban>
         </field>
@@ -63,7 +63,7 @@
             <tree>
                 <field name="name"/>
                 <field name="date"/>
-                <field name="status" widget="statusbar"/>
+                <field name="status"/>
             </tree>
         </field>
     </record>
